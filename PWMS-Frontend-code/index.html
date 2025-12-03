@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastic Waste Reporting Form</title>
+    <!-- Link External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Report Plastic Waste</h2>
+
+    <form>
+        <label>Reporter Name</label>
+        <input type="text" placeholder="Enter your name" required>
+
+        <label>Location</label>
+        <input type="text" placeholder="Enter location of the waste" required>
+
+        <label>Type of Plastic Waste</label>
+        <select required>
+            <option>Select waste type</option>
+            <option>Plastic bottles</option>
+            <option>Plastic bags</option>
+            <option>Packaging plastics</option>
+            <option>Mixed plastic waste</option>
+        </select>
+
+        <label>Description</label>
+        <textarea rows="3" placeholder="Additional details"></textarea>
+
+        <label>Upload Image</label>
+        <input type="file" accept="image/*">
+
+        <button type="submit">Submit Report</button>
+    </form>
+</div>
+
+</body>
+</html>
