@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard – Plastic Waste Management System</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: #0b8a34;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Dashboard Grid */
+        .dashboard {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Card Style */
+        .card {
+            background: #e9f7ec;
+            border: 1px solid #cfe8d4;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #0b6f2b;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: #0b8a34;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #0a732c;
+        }
+
+        /* Pick-up List */
+        .pickup-item, 
+        .update-item {
+            background: #ffffff;
+            border: 1px solid #d4e6d8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 4px rgba(0,0,0,0.05);
+        }
+
+        /* Recent Updates Section */
+        .updates-section {
+            padding: 20px;
+        }
+
+        .updates-container {
+            background: #e9f7ec;
+            border: 1px solid #cfe8d4;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Plastic Waste Management System</h1>
+        <span>Welcome, User</span>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+
+        <!-- Report Waste -->
+        <div class="card">
+            <h2>Report Waste</h2>
+            <p>Quickly report plastic waste in your area to help keep the community clean.</p>
+            <a href="index.html"><button class="btn">Report Now</button></a>
+        </div>
+
+        <!-- Points -->
+        <div class="card">
+            <h2>Points Accumulated</h2>
+            <p style="font-size: 40px; font-weight: bold; color: #0b8a34;">320</p>
+            <p>You earn points each time you report plastic waste.</p>
+        </div>
+
+        <!-- Scheduled Pick-Up -->
+        <div class="card">
+            <h2>Scheduled Pick-Up</h2>
+            <div class="cards">
+            
+            <p>Schedule your pickup on available days</p>
+            <a href="pm.html"><button class="btn">Schedule pickup</button></a>
+        </div>
+
+    </div>
+
+    <!-- Recent Updates Section -->
+    <section class="updates-section">
+        <div class="updates-container">
+            <h2>Recent Updates from Admin</h2>
+
+            <div class="update-item">
+                ♻ New recycling facility opened in Bonaberi Zone.
+            </div>
+
+            <div class="update-item">
+                📢 Reward program updated — earn bonus points for accurate reports.
+            </div>
+
+            <div class="update-item">
+                🚛 Pick-up delays expected due to road maintenance work in selected areas.
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
