@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>User Dashboard – Plastic Waste Management System</title>
-
     <style>
         body {
             margin: 0;
@@ -20,6 +19,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
         }
 
         /* Dashboard Grid */
@@ -58,10 +71,21 @@
             cursor: pointer;
             border-radius: 5px;
             font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
         }
 
         .btn:hover {
             background: #0a732c;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
         }
 
         /* Pick-up List */
@@ -88,63 +112,388 @@
             box-shadow: 0 0 5px rgba(0,0,0,0.1);
         }
 
+        /* Stats */
+        .points-display {
+            font-size: 40px;
+            font-weight: bold;
+            color: #0b8a34;
+            margin: 10px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0b8a34;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 
 <body>
-
     <!-- Header -->
     <header>
-        <h1>Plastic Waste Management System</h1>
-        <span>Welcome, User</span>
+        <div>
+            <h1>Plastic Waste Management System</h1>
+            <div id="userInfo">Loading user info...</div>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
     </header>
 
     <!-- Dashboard -->
     <div class="dashboard">
-
         <!-- Report Waste -->
         <div class="card">
             <h2>Report Waste</h2>
             <p>Quickly report plastic waste in your area to help keep the community clean.</p>
-            <a href="report.html"><button class="btn">Report Now</button></a>
+            <a href="report.html" class="btn">Report Now</a>
+            <div id="reportsStats" class="loading">Loading reports...</div>
         </div>
 
         <!-- Points -->
         <div class="card">
-            <h2>Points Accumulated</h2>
-            <p style="font-size: 40px; font-weight: bold; color: #0b8a34;">320</p>
-            <p>You earn points each time you report plastic waste.</p>
+            <h2>Your Points</h2>
+            <div id="pointsDisplay" class="points-display">0</div>
+            <p>You earn points each time you report plastic waste or schedule pickups.</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalReports">0</div>
+                    <div class="stat-label">Total Reports</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalPickups">0</div>
+                    <div class="stat-label">Pickups</div>
+                </div>
+            </div>
         </div>
 
         <!-- Scheduled Pick-Up -->
         <div class="card">
-            <h2>Scheduled Pick-Up</h2>
-            <div class="cards">
-            
-            <p>Schedule your pickup on available days</p>
-            <a href="pm.html"><button class="btn">Schedule pickup</button></a>
+            <h2>Pickup Management</h2>
+            <p>Schedule and manage your plastic waste pickups.</p>
+            <a href="pm.html" class="btn">Schedule Pickup</a>
+            <a href="#" class="btn btn-secondary" onclick="viewMyPickups()">View My Pickups</a>
+            <div id="pickupStatus" class="loading">Loading pickup info...</div>
         </div>
-
     </div>
+
+    <!-- My Recent Activity -->
+    <section class="updates-section">
+        <div class="updates-container">
+            <h2>My Recent Activity</h2>
+            <div id="recentActivity">
+                <div class="loading">Loading activity...</div>
+            </div>
+        </div>
+    </section>
 
     <!-- Recent Updates Section -->
     <section class="updates-section">
         <div class="updates-container">
-            <h2>Recent Updates</h2>
-
+            <h2>System Updates</h2>
             <div class="update-item">
                 ♻ New recycling facility opened in Bonaberi Zone.
             </div>
-
             <div class="update-item">
                 📢 Reward program updated — earn bonus points for accurate reports.
             </div>
-
             <div class="update-item">
                 🚛 Pick-up delays expected due to road maintenance work in selected areas.
             </div>
         </div>
     </section>
+    
+    <script>
+        // API Configuration
+        const API_URL = 'http://localhost:5000/api';
+        let userData = null;
 
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthAndLoadData();
+        });
+
+        // Check if user is logged in
+        function checkAuthAndLoadData() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (!token || !user) {
+                // Redirect to login if not authenticated
+                window.location.href = 'Login.html';
+                return;
+            }
+            
+            try {
+                userData = JSON.parse(user);
+                loadUserDashboard();
+            } catch (error) {
+                console.error('Error parsing user data:', error);
+                logout();
+            }
+        }
+
+        // Load all dashboard data
+        async function loadUserDashboard() {
+            // Update user info in header
+            document.getElementById('userInfo').innerHTML = `
+                Welcome, <strong>${userData.name}</strong> | 
+                Role: ${userData.role} | 
+                User ID: ${userData.id}
+            `;
+            
+            // Load user points and stats
+            await loadUserStats();
+            
+            // Load recent reports
+            await loadRecentReports();
+            
+            // Load pickup info
+            await loadPickupInfo();
+            
+            // Load recent activity
+            await loadRecentActivity();
+        }
+
+        // Load user statistics
+        async function loadUserStats() {
+            const token = localStorage.getItem('token');
+            
+            try {
+                // Load user points (from login response)
+                document.getElementById('pointsDisplay').textContent = userData.points || 0;
+                
+                // Load reports count
+                const reportsResponse = await fetch(`${API_URL}/reports/my-reports`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (reportsResponse.ok) {
+                    const reports = await reportsResponse.json();
+                    document.getElementById('totalReports').textContent = reports.length;
+                    
+                    // Update reports stats card
+                    const pendingReports = reports.filter(r => r.status === 'pending').length;
+                    const resolvedReports = reports.filter(r => r.status === 'resolved').length;
+                    
+                    document.getElementById('reportsStats').innerHTML = `
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">${pendingReports}</div>
+                                <div class="stat-label">Pending</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">${resolvedReports}</div>
+                                <div class="stat-label">Resolved</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Load pickups count
+                const pickupsResponse = await fetch(`${API_URL}/pickups/my-pickups`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (pickupsResponse.ok) {
+                    const pickups = await pickupsResponse.json();
+                    document.getElementById('totalPickups').textContent = pickups.length;
+                }
+                
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                document.getElementById('reportsStats').innerHTML = 
+                    '<div class="empty-state">Unable to load reports</div>';
+            }
+        }
+
+        // Load recent reports
+        async function loadRecentReports() {
+            const token = localStorage.getItem('token');
+            
+            try {
+                const response = await fetch(`${API_URL}/reports/my-reports`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const reports = await response.json();
+                    const recentReports = reports.slice(0, 3); // Show last 3
+                    
+                    const reportsList = document.getElementById('recentReportsList');
+                    if (reportsList) {
+                        if (recentReports.length > 0) {
+                            reportsList.innerHTML = recentReports.map(report => `
+                                <div class="update-item">
+                                    📍 ${report.location}<br>
+                                    <small>Type: ${report.waste_type} | Status: ${report.status}</small>
+                                </div>
+                            `).join('');
+                        } else {
+                            reportsList.innerHTML = '<div class="empty-state">No reports yet</div>';
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading reports:', error);
+            }
+        }
+
+        // Load pickup information
+        async function loadPickupInfo() {
+            const token = localStorage.getItem('token');
+            
+            try {
+                const response = await fetch(`${API_URL}/pickups/my-pickups`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const pickups = await response.json();
+                    const pendingPickups = pickups.filter(p => p.status === 'pending').length;
+                    const completedPickups = pickups.filter(p => p.status === 'completed').length;
+                    
+                    document.getElementById('pickupStatus').innerHTML = `
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">${pendingPickups}</div>
+                                <div class="stat-label">Pending</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">${completedPickups}</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading pickups:', error);
+                document.getElementById('pickupStatus').innerHTML = 
+                    '<div class="empty-state">Unable to load pickup info</div>';
+            }
+        }
+
+        // Load recent activity (combined reports and pickups)
+        async function loadRecentActivity() {
+            const token = localStorage.getItem('token');
+            
+            try {
+                // Get both reports and pickups
+                const [reportsResponse, pickupsResponse] = await Promise.all([
+                    fetch(`${API_URL}/reports/my-reports`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    }),
+                    fetch(`${API_URL}/pickups/my-pickups`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    })
+                ]);
+                
+                let activities = [];
+                
+                if (reportsResponse.ok) {
+                    const reports = await reportsResponse.json();
+                    activities = activities.concat(reports.map(report => ({
+                        type: 'report',
+                        text: `📝 Reported ${report.waste_type} waste at ${report.location}`,
+                        date: new Date(report.created_at),
+                        status: report.status
+                    })));
+                }
+                
+                if (pickupsResponse.ok) {
+                    const pickups = await pickupsResponse.json();
+                    activities = activities.concat(pickups.map(pickup => ({
+                        type: 'pickup',
+                        text: `🚛 Scheduled pickup for ${pickup.pickup_date} at ${pickup.address}`,
+                        date: new Date(pickup.created_at),
+                        status: pickup.status
+                    })));
+                }
+                
+                // Sort by date (newest first)
+                activities.sort((a, b) => b.date - a.date);
+                
+                // Display recent activity (last 5)
+                const recentActivity = activities.slice(0, 5);
+                
+                const activityContainer = document.getElementById('recentActivity');
+                if (recentActivity.length > 0) {
+                    activityContainer.innerHTML = recentActivity.map(activity => `
+                        <div class="update-item">
+                            ${activity.text}<br>
+                            <small>${activity.date.toLocaleDateString()} | Status: ${activity.status}</small>
+                        </div>
+                    `).join('');
+                } else {
+                    activityContainer.innerHTML = '<div class="empty-state">No recent activity</div>';
+                }
+                
+            } catch (error) {
+                console.error('Error loading activity:', error);
+                document.getElementById('recentActivity').innerHTML = 
+                    '<div class="empty-state">Unable to load activity</div>';
+            }
+        }
+
+        // View my pickups
+        function viewMyPickups() {
+            // You can create a separate page or modal for this
+            alert('This would show all your pickups. For now, check the PM page.');
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'Login.html';
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadUserDashboard, 30000);
+    </script>
 </body>
 </html>

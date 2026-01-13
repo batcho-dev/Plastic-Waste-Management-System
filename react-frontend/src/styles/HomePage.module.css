@@ -1,0 +1,264 @@
+.homePage {
+    padding-top: 80px; /* For fixed navbar */
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    height: 100vh;
+    background: url('https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress') no-repeat center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.heroContent {
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+    max-width: 800px;
+}
+
+.tag {
+    padding: 8px 16px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.heroContent h1 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+    .heroContent h1 {
+        font-size: 2rem;
+    }
+}
+
+.ctaButton {
+    margin-top: 20px;
+    padding: 15px 35px;
+    background: #4caf50;
+    color: #fff;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.ctaButton:hover {
+    background: #45a049;
+}
+
+/* ===== SUB-HERO ===== */
+.subHero {
+    background: linear-gradient(to right, #0f5132, #77dd77);
+    padding: 60px 0;
+    text-align: center;
+    color: white;
+}
+
+.subHero h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.subHero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* ===== SERVICES ===== */
+.services {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.sectionTitle {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #333;
+    text-align: center;
+}
+
+.serviceContainer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.serviceBox {
+    width: 300px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.serviceBox:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.serviceBox img {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 20px;
+}
+
+.serviceBox h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #0f5132;
+}
+
+.serviceBox p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ===== ABOUT ===== */
+.about {
+    padding: 80px 0;
+    background: #f9f9f9;
+}
+
+.aboutContainer {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+/* ===== NEWS ===== */
+.news {
+    padding: 80px 0;
+}
+
+.newsContainer {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.newsItem {
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #eee;
+}
+
+.newsItem:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.newsItem h4 {
+    color: #0f5132;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.newsItem p {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ===== CONTACT ===== */
+.contact {
+    padding: 80px 0;
+    background: #f9f9f9;
+}
+
+.contactContainer {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.contactContainer h3 {
+    color: #0f5132;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.contactContainer p {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.contactInfo {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f0f8f0;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.contactInfo p {
+    margin: 10px 0;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: #1c1c1c;
+    color: #fff;
+    padding: 60px 0;
+}
+
+.footerContent {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footerSection {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footerSection h3, .footerSection h4 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.footerSection p {
+    margin: 8px 0;
+    color: #bbb;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.socialIcons a img {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.3s;
+}
+
+.socialIcons a:hover img {
+    opacity: 0.8;
+}

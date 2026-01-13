@@ -1,0 +1,134 @@
+.loginPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+}
+
+.loginContainer {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+.loginContainer h2 {
+    text-align: center;
+    color: #0b8a34;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
+
+.loginForm {
+    margin-bottom: 25px;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.formControl {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.formControl:focus {
+    outline: none;
+    border-color: #0b8a34;
+    box-shadow: 0 0 0 3px rgba(11, 138, 52, 0.1);
+}
+
+select.formControl {
+    cursor: pointer;
+    background: white;
+}
+
+.formOptions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+}
+
+.checkboxLabel input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.forgotLink {
+    color: #0b8a34;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgotLink:hover {
+    text-decoration: underline;
+}
+
+.loginButton {
+    width: 100%;
+    padding: 14px;
+    background: #0b8a34;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.loginButton:hover:not(:disabled) {
+    background: #0a732c;
+}
+
+.loginButton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.loginFooter {
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.loginFooter p {
+    margin: 10px 0;
+    color: #666;
+}
+
+.link {
+    color: #0b8a34;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

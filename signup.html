@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SignUp - Plastic Waste Management</title>
+<script src="signup.js" defer></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .signup-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        width: 350px;
+    }
+    .signup-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #07b03f;
+    }
+    .signup-container input[type="email"],
+    .signup-container input[type="password"],
+    .signup-container input[type="tel"],
+    .signup-container input[type="text"],
+    .signup-container select {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0 15px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .signup-container button {
+        width: 100%;
+        padding: 10px;
+        background-color: #0ab212;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    .signup-container button:hover {
+        background-color: #12ae2a;
+    }
+    
+    .signup-container .links {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
+    .signup-container .links .text {
+      color: grey;
+    }
+    .signup-container .links a {
+        color: #0bb925;
+        text-decoration: none;
+    }
+    .signup-container .links a:hover {
+        text-decoration: underline;
+    }
+    .otp-container {
+        display: none;
+    }
+    .message { text-align: center; margin-top: 15px; padding: 10px; border-radius: 5px; }
+    .error { background: #ffe6e6; color: #c62828; }
+    .success { background: #e6f8ea; color: #0a8a40; }
+    .otp-container { display: none; margin: 10px 0; }
+</style>
+</head>
+<body>
+
+<div class="signup-container">
+    <h2>Sign Up</h2>
+
+    <!-- Removed form action; JS will handle validation -->
+    <form id="signupForm">
+
+        <!-- Role Selection -->
+        <label for="role">Select a Role</label>
+        <select name="role" id="role" required>
+            <option value="">Select Role</option>
+            <option value="citizen">Reporter</option>
+            <option value="collector">Collector</option>
+            <option value="admin">Admin</option>
+        </select>
+        
+        <!-- Name -->
+        <input type="text" id="name" name="name" placeholder="Full Name" required>
+
+        <!-- Email + Password -->
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+
+        <!-- Phone + OTP -->
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <div class="otp-container">
+            <input type="text" name="otp" placeholder="Enter OTP">
+            <button type="button" id="verifyOtp">Verify OTP</button>
+        </div>
+
+        <!-- Remember Me -->
+        <label>
+            <input type="checkbox" name="remember"> Remember me
+        </label>
+
+        <!-- UPDATED BUTTON WITH VALIDATION -->
+        <button type="submit" id="signupBtn">Sign Up</button>
+
+        <!-- Links -->
+        <div class="links">
+            <div class="text">Already have an account?</div> 
+            <a href="Login.html">Login</a>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

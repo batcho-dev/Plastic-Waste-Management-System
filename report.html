@@ -3,40 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plastic Waste Reporting Form</title>
-    <!-- Link External CSS -->
+    <title>Report Plastic Waste</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .error   { background: #ffe6e6; color: #c62828; }
+        .success { background: #e6f8ea; color: #0a8a40; }
+    </style>
 </head>
 <body>
 
 <div class="container">
     <h2>Report Plastic Waste</h2>
 
-    <form>
-        <label>Reporter Name</label>
-        <input type="text" placeholder="Enter your name" required>
-
+    <form id="reportForm">
         <label>Location</label>
-        <input type="text" placeholder="Enter location of the waste" required>
+        <input type="text" name="location" placeholder="Enter location of the waste" required>
 
         <label>Type of Plastic Waste</label>
-        <select required>
-            <option>Select waste type</option>
-            <option>Plastic bottles</option>
-            <option>Plastic bags</option>
-            <option>Packaging plastics</option>
-            <option>Mixed plastic waste</option>
+        <select name="waste_type" required>
+            <option value="">Select waste type</option>
+            <option value="bottles">Plastic bottles</option>
+            <option value="bags">Plastic bags</option>
+            <option value="packaging">Packaging plastics</option>
+            <option value="mixed">Mixed plastic waste</option>
+            <option value="other">Other</option>
         </select>
 
-        <label>Description</label>
-        <textarea rows="3" placeholder="Additional details"></textarea>
+        <label>Description (optional)</label>
+        <textarea name="description" rows="4" placeholder="Additional details..."></textarea>
 
-        <label>Upload Image</label>
-        <input type="file" accept="image/*">
+        <!-- Image upload - we'll add proper handling later -->
+        <label>Upload Image (optional)</label>
+        <input type="file" name="image" accept="image/*">
 
         <button type="submit">Submit Report</button>
     </form>
+
+    <div id="message" class="message"></div>
 </div>
+
+<script>
+    document.getElementById("reportForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const messageDiv = document.getElementById("message");
+        messageDiv.textContent = "";
+        messageDiv.className = "message";
+
+        const formData = {
+            location: document.querySelector('[name="location"]').value.trim(),
+            waste_type: document.querySelector('[name="waste_type"]').value,
+            description: document.querySelector('[name="description"]').value.trim() || null
+        };
+
+        if (!formData.location || !formData.waste_type) {
+            messageDiv.textContent = "Location and waste type are required";
+            messageDiv.className = "message error";
+            return;
+        }
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+            messageDiv.textContent = "Please login first";
+            messageDiv.className = "message error";
+            setTimeout(() => window.location.href = "Login.html", 1500);
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:5000/api/reports", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                messageDiv.textContent = "Report submitted successfully! Thank you for helping ♻️";
+                messageDiv.className = "message success";
+                document.getElementById("reportForm").reset();
+            } else {
+                messageDiv.textContent = result.error || "Failed to submit report";
+                messageDiv.className = "message error";
+            }
+        } catch (err) {
+            messageDiv.textContent = "Could not connect to server";
+            messageDiv.className = "message error";
+            console.error(err);
+        }
+    });
+</script>
 
 </body>
 </html>

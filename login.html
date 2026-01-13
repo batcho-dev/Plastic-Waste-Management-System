@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login - Plastic Waste Management</title>
+<script src="login.js" defer></script>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -27,8 +28,6 @@
     }
     .login-container input[type="email"],
     .login-container input[type="password"],
-    .login-container input[type="tel"],
-    .login-container input[type="text"],
     .login-container select {
         width: 100%;
         padding: 10px;
@@ -49,7 +48,6 @@
     .login-container button:hover {
         background-color: #12ae2a;
     }
-    
     .login-container .links {
         display: flex;
         justify-content: space-between;
@@ -57,7 +55,7 @@
         margin-top: 5px;
     }
     .login-container .links .text {
-      color: grey;
+        color: grey;
     }
     .login-container .links a {
         color: #0bb925;
@@ -66,17 +64,25 @@
     .login-container .links a:hover {
         text-decoration: underline;
     }
-    .otp-container {
-        display: none;
+    .message {
+        text-align: center;
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
     }
+    .error { background: #ffe6e6; color: #c62828; }
+    .success { background: #e6f8ea; color: #0a8a40; }
+    .links { display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; }
+    .links a { color: #0bb925; text-decoration: none; }
+    .links a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 
 <div class="login-container">
-    <h2>Sign Up</h2>
+    <h2>Login</h2>
 
-    <!-- Removed form action; JS will handle validation -->
+    <!-- Login Form -->
     <form id="loginForm">
 
         <!-- Role Selection -->
@@ -92,85 +98,25 @@
         <input type="email" id="email" name="email" placeholder="Email" required>
         <input type="password" id="password" name="password" placeholder="Password" required>
 
-        <!-- Phone + OTP -->
-        <input type="tel" name="phone" placeholder="Phone Number">
-        <div class="otp-container">
-            <input type="text" name="otp" placeholder="Enter OTP">
-            <button type="button" id="verifyOtp">Verify OTP</button>
-        </div>
-
         <!-- Remember Me -->
         <label>
             <input type="checkbox" name="remember"> Remember me
         </label>
 
-        <!-- UPDATED BUTTON WITH VALIDATION -->
-        <button type="submit" id="loginBtn">Sign Up</button>
+        <!-- Login Button -->
+        <button type="submit" id="loginBtn">Login</button>
+
+        <div id="message"></div>
 
         <!-- Links -->
         <div class="links">
             <a href="/reset-password">Forgot Password?</a>
-            <div class="text">Already have an account?</div> 
-            <a href="/register">Login</a>
+            <div class="text">Don't have an account?</div>
+            <a href="signup.html">Sign Up</a>
         </div>
 
     </form>
 </div>
-
-<script>
-    const phoneInput = document.querySelector('input[name="phone"]');
-    const otpContainer = document.querySelector('.otp-container');
-    const loginForm = document.getElementById('loginForm');
-
-    phoneInput.addEventListener('input', () => {
-        if(phoneInput.value.length >= 10){
-            otpContainer.style.display = 'block';
-        } else {
-            otpContainer.style.display = 'none';
-        }
-    });
-// ---------------------------------------
-// ✅ SIMPLE SIGNUP VALIDATION + REDIRECT
-// ---------------------------------------
-loginForm.addEventListener('submit', function(e) {
-    e.preventDefault(); // stop default form submission
-
-    let role = document.getElementById("role").value;
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-    let otpField = loginForm.otp;
-
-    // ---- ROLE MUST BE SELECTED ----
-    if (role === "") {
-        alert("Please select a role.");
-        return;
-    }
-
-    // ---- EMAIL MUST NOT BE EMPTY ----
-    if (email === "") {
-        alert("Please enter your email.");
-        return;
-    }
-
-    // ---- PASSWORD MUST NOT BE EMPTY ----
-    if (password === "") {
-        alert("Please enter a password.");
-        return;
-    }
-
-    // ---- OTP CHECK ONLY IF OTP FIELD IS SHOWN ----
-    if (otpContainer.style.display === "block" && otpField.value.trim() === "") {
-        alert("Please enter the OTP.");
-        return;
-    }
-
-    // ---------------------------------------
-    // SUCCESSFUL SIGNUP → REDIRECT TO DASHBOARD
-    // ---------------------------------------
-    alert("Signup successful!");
-    window.location.href = "UserDashboard.html"; // change if needed
-});
-</script>
 
 </body>
 </html>

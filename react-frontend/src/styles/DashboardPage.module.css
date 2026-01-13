@@ -1,0 +1,319 @@
+.dashboardPage {
+    padding-top: 20px;
+}
+
+/* Header */
+.dashboardHeader {
+    background: linear-gradient(135deg, #0b8a34 0%, #0a732c 100%);
+    color: white;
+    padding: 30px 0;
+    margin-bottom: 40px;
+}
+
+.headerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.headerContent h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.userInfo {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.roleBadge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0 5px;
+}
+
+.logoutButton {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.logoutButton:hover {
+    background: #c82333;
+}
+
+/* Dashboard Grid */
+.dashboardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.dashboardCard {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.dashboardCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.dashboardCard h2 {
+    color: #0b6f2b;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.dashboardCard p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Points Display */
+.pointsDisplay {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #0b8a34;
+    margin: 15px 0;
+    text-align: center;
+}
+
+/* Buttons */
+.cardButton {
+    display: inline-block;
+    background: #0b8a34;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.cardButton:hover {
+    background: #0a732c;
+    color: white;
+}
+
+.secondaryButton {
+    background: #6c757d;
+}
+
+.secondaryButton:hover {
+    background: #5a6268;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+/* Stats */
+.cardStats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.statItem {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.statNumber {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #0b8a34;
+    margin-bottom: 5px;
+}
+
+.statLabel {
+    font-size: 0.85rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Activity Section */
+.activitySection {
+    margin: 40px 0;
+}
+
+.activityContainer {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.activityContainer h2 {
+    color: #0b6f2b;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+.activityList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.activityItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #0b8a34;
+}
+
+.activityIcon {
+    font-size: 1.5rem;
+    margin-top: 2px;
+}
+
+.activityContent {
+    flex: 1;
+}
+
+.activityText {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-weight: 500;
+}
+
+.activityMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.activityDate {
+    color: #666;
+}
+
+.statusBadge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.statusBadge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.statusBadge.resolved, .statusBadge.collected, .statusBadge.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+.emptyState p {
+    margin: 0;
+}
+
+/* Updates Section */
+.updatesSection {
+    margin: 40px 0;
+}
+
+.updatesContainer {
+    background: #e9f7ec;
+    border: 1px solid #cfe8d4;
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.updatesContainer h2 {
+    color: #0b6f2b;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+.updateItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #d4e6d8;
+}
+
+.updateItem:last-child {
+    margin-bottom: 0;
+}
+
+.updateIcon {
+    font-size: 1.5rem;
+}
+
+.updateContent p {
+    margin: 0;
+    color: #333;
+}
+
+/* Loading State */
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #0b8a34;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
